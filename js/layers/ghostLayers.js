@@ -3,8 +3,8 @@ addNode("r0h", {
   row: 0,
   position: 1
 })
-addNode("r2h", {
+addNode("r4h", {
     layerShown: "ghost",
-  row: 2,
+  row: 4,
   position: 1
 })
