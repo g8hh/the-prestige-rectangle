@@ -102,7 +102,7 @@ addLayer("achs", {
       34: {
         name: "It's not like I needed those upgrades anyway",
         tooltip: "Finish The Challenge.",
-        done(){return player.l.dp.gt(0)},
+        done(){return player.l.dp>0},
         unlocked(){return hasAchievement(this.layer,27)}
       },
     },

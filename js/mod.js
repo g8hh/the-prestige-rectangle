@@ -25,7 +25,7 @@ let changelog = `<h1>Changelog:</h1><br>
   <h3>v1.1 ~ The Line</h3><br>
     - Created Lines
     - Created The Challenge
-    Endgame: 0.25 DP
+    Endgame: All achievements
     `
 
 let winText = `Congratulations! You have reached the end of this grindy game!`
