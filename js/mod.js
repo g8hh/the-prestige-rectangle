@@ -3,7 +3,7 @@ let modInfo = {
 	id: "mhauirsbfvshncfhuscndfhdfgvfndu",
 	author: "gapples2",
 	pointsName: "points",
-	modFiles: ["layers.js", "tree.js", "ghostLayers.js"],
+	modFiles: ["layers/rectangle.js", "tree.js", "layers/ghostLayers.js", "layers/achs.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -56,9 +56,12 @@ function getPointGen() {
   // l4
   if(hasUpgrade('l4',11))gain=gain.times(upgradeEffect("l4",11))
   
-  //middle
+  // middle/center
   if(hasMilestone('m',0))gain=gain.times(2)
   if(hasMilestone('m',3))gain=gain.times(10)
+  
+  // lines
+  if(hasUpgrade('l',11))gain=gain.times(upgradeEffect("l",11))
   
 	return gain
 }
@@ -73,7 +76,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(7)
+	return player.l.points.gte(1e100)
 }
 
 
