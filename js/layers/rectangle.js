@@ -272,6 +272,7 @@ addLayer("l2", {
     if(hasUpgrade("l1",22))max+=2
     if(hasUpgrade("l4",22))max+=2
     if(hasUpgrade("l1",32))max+=3
+    if(inChallenge("m",11)&&hasUpgrade("l2",12))max+=2
     return max
   }
 })
