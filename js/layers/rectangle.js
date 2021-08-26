@@ -549,7 +549,7 @@ addLayer("m", {
       unlocked(){return hasMilestone("m",2)&&!inChallenge("l",11)},
       onExit(){
         if(!hasMilestone("l",0))return;
-        let max = player.l2.points.div(1e15).log(1e5).min(10-player[this.layer].challenges[11]).max(0).floor().toNumber()
+        let max = player.l2.points.div(1e15).log(1e5).min(5-player[this.layer].challenges[11]).max(0).floor().toNumber()
         if(!isNaN(max))player[this.layer].challenges[11]+=max
       }
     },
@@ -778,10 +778,10 @@ addLayer("l", {
       name: "The Challenge",
       challengeDescription: "Lose upgrades of your choice and disable <b>The Prestige Triangle</b>.",
       canComplete: function() {return false},
-      goalDescription: "1e250 points",
+      goalDescription: "1.79e308 points",
       rewardDescription(){return `gain ${format(player.l.dpGain)} DP`},
       onExit(){
-        if(player.points.gte(1e250)){
+        if(player.points.gte(1.79e308)){
           player.l.dp=Math.max(player.l.dp,player.l.dpGain)
         }
       }
