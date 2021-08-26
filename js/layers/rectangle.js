@@ -263,7 +263,7 @@ addLayer("l2", {
   passiveGeneration(){return hasMilestone("m",1)&&!inChallenge("m",11)?1:0},
   tabFormat:[
     "main-display",
-    function(){return hasMilestone("m",1)?"":"prestige-button"},
+    function(){return hasMilestone("m",1)&&!inChallenge("m",11)?"":"prestige-button"},
     "resource-display",
     "upgrades"
   ],
@@ -367,7 +367,7 @@ addLayer("l3", {
   passiveGeneration(){return hasMilestone("m",4)&&!inChallenge("m",11)?1:0},
   tabFormat:[
     "main-display",
-    function(){return hasMilestone("m",4)?"":"prestige-button"},
+    function(){return hasMilestone("m",4)&&!inChallenge("m",11)?"":"prestige-button"},
     "resource-display",
     "upgrades"
   ],
