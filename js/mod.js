@@ -13,7 +13,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1",
+	num: "1.1.1",
 	name: "The Line",
 }
 
@@ -23,9 +23,11 @@ let changelog = `<h1>Changelog:</h1><br>
     - Lots of gameplay<br>
     Endgame: 7 MP<br><br>
   <h3>v1.1 ~ The Line</h3><br>
-    - Created Lines
-    - Created The Challenge
-    Endgame: All achievements
+    - Created Lines<br>
+    - Created The Challenge<br>
+    Endgame: All achievements<br><br>
+  v1.1.1<br>
+    - Fixed a few bugs
     `
 
 let winText = `Congratulations! You have reached the end of this grindy game!`
