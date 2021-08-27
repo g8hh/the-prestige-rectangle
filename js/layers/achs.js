@@ -103,7 +103,13 @@ addLayer("achs", {
         name: "It's not like I needed those upgrades anyway",
         tooltip: "Finish The Challenge.",
         done(){return player.l.dp>0},
-        unlocked(){return hasAchievement(this.layer,27)}
+        unlocked(){return hasAchievement(this.layer,33)}
+      },
+      35: {
+        name: "Energize!",
+        tooltip: "Unlock downgrade energy.",
+        done(){return hasMilestone("l",9)},
+        unlocked(){return hasAchievement(this.layer,33)}
       },
     },
   tabFormat: [["display-text",function(){return `You have completed <h2 style="color:#ffff00;text-shadow:#ffff00 0px 0px 10px">${formatWhole(player.achs.achievements.length)}/${formatWhole(Object.keys(layers.achs.achievements).length-2)}</h2> achievements.`}],"blank","achievements"],

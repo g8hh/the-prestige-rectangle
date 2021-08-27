@@ -226,6 +226,7 @@ addLayer("l2", {
       cost: D(100),
       effect(){
         let eff = D(2)
+        if(hasMilestone("l",7))eff=eff.pow(player.m.points.pow(2).add(1))
         
         return eff
       },
@@ -260,10 +261,10 @@ addLayer("l2", {
       dp: 2
     },
   },
-  passiveGeneration(){return hasMilestone("m",1)&&!inChallenge("m",11)?1:0},
+  passiveGeneration(){return hasMilestone("m",1)&&!inChallenge("m",11)||hasMilestone("l",6)&&inChallenge("m",11)?1:0},
   tabFormat:[
     "main-display",
-    function(){return hasMilestone("m",1)&&!inChallenge("m",11)?"":"prestige-button"},
+    function(){return hasMilestone("m",1)&&!inChallenge("m",11)||hasMilestone("l",6)&&inChallenge("m",11)?"":"prestige-button"},
     "resource-display",
     "upgrades"
   ],
@@ -334,13 +335,12 @@ addLayer("l3", {
       title: "Extra Upgrades+",
       description: "Unlock 2 L1 upgrades.",
       cost: D(2),
-      unlocked(){return !inChallenge("m",11)},
       dp: 2,
-      unlocked(){return !isDisabled(this.layer, this.id)}
+      unlocked(){return !isDisabled(this.layer, this.id)&&!inChallenge("m",11)}
     },
     21:{
-      title: "F3 to F1",
-      description: "Gain more F1 points based on F3 points.",
+      title: "L3 to L1",
+      description: "Gain more L1 points based on L3 points.",
       cost: D(25),
       effect(){
         let eff = player[this.layer].points.add(1).sqrt().add(1)
@@ -353,7 +353,7 @@ addLayer("l3", {
     },
     22:{
       title: "Other Layer Boosting",
-      description: "Gain more F1 points based on F2 points.",
+      description: "Gain more L1 points based on L2 points.",
       cost: D(2500),
       effect(){
         let eff = player.l2.points.add(1)
@@ -422,6 +422,7 @@ addLayer("l4", {
       effect(){
         let eff = player.points.add(1).root(3)
         if(hasMilestone("m",3))eff=eff.pow(1.2)
+        if(hasMilestone("l",4))eff=eff.pow(0.2/(38.5-player.l.dp)+1)
         
         return eff
       },
@@ -456,7 +457,14 @@ addLayer("l4", {
     let max = 4
     
     return max
-  }
+  },
+  tabFormat:[
+    "main-display",
+    function(){return hasMilestone("l",5)&&!inChallenge("m",11)?"":"prestige-button"},
+    "resource-display",
+    "upgrades"
+  ],
+  passiveGeneration(){return hasMilestone("l",5)&&!inChallenge("m",11)}
 })
 addLayer("m", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
@@ -546,7 +554,7 @@ addLayer("m", {
       goalDescription(){return `${format(tmp[this.layer].challenges[11].goalAmt)} L2 points`},
       rewardDescription(){return `^${format(tmp[this.layer].challenges[11].effect,1)} <b>Doubler</b> effect`},
       effect(){return challengeCompletions(this.layer,this.id)+1},
-      unlocked(){return hasMilestone("m",2)&&!inChallenge("l",11)},
+      unlocked(){return hasMilestone("m",2)},
       onExit(){
         if(!hasMilestone("l",0))return;
         let max = player.l2.points.div(1e15).log(1e5).min(5-player[this.layer].challenges[11]).max(0).floor().toNumber()
@@ -623,7 +631,7 @@ addLayer("l", {
     doReset(layer){
       if(layer=="l"){
         (["l1","l2","l3","l4","m"]).forEach(x=>layerDataReset(x))
-        if(hasMilestone(this.layer,1))player.m.points=D(Math.min(Math.floor(player[this.layer].milestones.length/2),7))
+        if(hasMilestone(this.layer,1))player.m.points=D(Math.min(Math.floor(player[this.layer].milestones.length/2),hasMilestone("l",8)?7:2))
         layers.m.doReset("m")
       }
     },
@@ -669,6 +677,41 @@ addLayer("l", {
       requirementDescription: `5 Total Lines`,
       effectDescription: "Unlock <b>The Challenge</b>.",
       done() { return player[this.layer].total.gte(5) },
+      unlocked(){return hasMilestone(this.layer,this.id-1)}
+    },
+    4: {
+      requirementDescription: `0.25 DP`,
+      effectDescription: "<b>Point Boosters</b> is better based on DP.",
+      done() { return player[this.layer].dp>=0.25 },
+    },
+    5: {
+      requirementDescription: `1 DP`,
+      effectDescription: "Passively gain L4 points.",
+      done() { return player[this.layer].dp>=1 },
+      unlocked(){return hasMilestone(this.layer,this.id-1)}
+    },
+    6: {
+      requirementDescription: `2 DP`,
+      effectDescription: "Keep passive L2 gain in <b>The Prestige Triangle</b>.",
+      done() { return player[this.layer].dp>=2 },
+      unlocked(){return hasMilestone(this.layer,this.id-1)}
+    },
+    7: {
+      requirementDescription: `4 DP`,
+      effectDescription: "<b>Extra L3</b> is better based on CP.",
+      done() { return player[this.layer].dp>=4 },
+      unlocked(){return hasMilestone(this.layer,this.id-1)}
+    },
+    8: {
+      requirementDescription: `5 DP`,
+      effectDescription: "DP milestones affect line milestone 2 in a normal run.",
+      done() { return player[this.layer].dp>=5 },
+      unlocked(){return hasMilestone(this.layer,this.id-1)}
+    },
+    9: {
+      requirementDescription: `8 DP`,
+      effectDescription: "DP generates downgrade energy [NOT IMPLEMENTED].",
+      done() { return player[this.layer].dp>=8 },
       unlocked(){return hasMilestone(this.layer,this.id-1)}
     },
   },
@@ -776,14 +819,17 @@ addLayer("l", {
   challenges: {
     11: {
       name: "The Challenge",
-      challengeDescription: "Lose upgrades of your choice and disable <b>The Prestige Triangle</b>.",
-      canComplete: function() {return false},
+      challengeDescription: "Lose upgrades of your choice.",
+      canComplete: function() {return player.dp>=37.5},
       goalDescription: "1.79e308 points",
       rewardDescription(){return `gain ${format(player.l.dpGain)} DP`},
       onExit(){
         if(player.points.gte(1.79e308)){
           player.l.dp=Math.max(player.l.dp,player.l.dpGain)
         }
+      },
+      onEnter(){
+        player.m.points=D(2)
       }
     },
   },
@@ -830,6 +876,17 @@ addLayer("l", {
       Info:{
         content:[
           ["infobox","challInfo"]
+        ]
+      },
+      DP:{
+        content:[["microtabs","DP"]]
+      }
+    },
+    DP:{
+      Main:{
+        content:[
+          ["display-text",function(){return `You have ${format(player.l.dp)} downgrade points.`}],
+          ["milestones",[4,5,6,7,8,9]]
         ]
       }
     }
