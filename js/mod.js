@@ -13,8 +13,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1.1",
-	name: "The Line",
+	num: "1.2",
+	name: "Downgrade I",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -27,7 +27,12 @@ let changelog = `<h1>Changelog:</h1><br>
     - Created The Challenge<br>
     Endgame: All achievements<br><br>
   v1.1.1<br>
-    - Fixed a few bugs
+    - Fixed a few bugs<br><br>
+  <h3>v1.2 ~ Downgrade I</h3><br>
+    - Made The Challenge possible<br>
+    - Added 1 new achievement
+    - Added 6 DP milestones
+    Endgame: 6th DP milestone
     `
 
 let winText = `Congratulations! You have reached the end of this grindy game!`
@@ -78,11 +83,12 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
+  function(){return hasMilestone("l",7)?"<span style='color:red'>WARNING: Content beyond this point is untested.</span><br>If you get 5 or 8 downgrade points please<br> DM gapples2#5323 the upgrades you disabled.":""}
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.l.points.gte(1e100)
+	return hasMilestone("l",9)
 }
 
 
