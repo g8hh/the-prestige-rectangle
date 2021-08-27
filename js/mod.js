@@ -30,8 +30,8 @@ let changelog = `<h1>Changelog:</h1><br>
     - Fixed a few bugs<br><br>
   <h3>v1.2 ~ Downgrade I</h3><br>
     - Made The Challenge possible<br>
-    - Added 1 new achievement
-    - Added 6 DP milestones
+    - Added 1 new achievement<br>
+    - Added 6 DP milestones<br>
     Endgame: 6th DP milestone
     `
 
