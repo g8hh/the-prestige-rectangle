@@ -567,7 +567,7 @@ addLayer("m", {
     "Main":{
       content:[
         "main-display",
-        "prestige-button",
+        function(){return inChallenge("m",11)?"":"prestige-button"},
         "resource-display",
         "milestones"
       ]
@@ -575,7 +575,7 @@ addLayer("m", {
     "Challenges":{
       content:[
         "main-display",
-        "prestige-button",
+        function(){return inChallenge("m",11)?"":"prestige-button"},
         "resource-display",
         "challenges"
       ],
@@ -643,6 +643,7 @@ addLayer("l", {
       cost: D(1),
       effect(){
         let eff = player.m.points.add(2).pow(player.l.total.add(1).sqrt()).times(100)
+        if(eff.gte(1e100))eff=eff.div(1e100).pow(0.5).times(1e100)
         
         return eff
       },
@@ -820,12 +821,13 @@ addLayer("l", {
     11: {
       name: "The Challenge",
       challengeDescription: "Lose upgrades of your choice.",
-      canComplete: function() {return player.dp>=37.5},
+      canComplete: function() {return player.points.gte(1.79e308)},
       goalDescription: "1.79e308 points",
       rewardDescription(){return `gain ${format(player.l.dpGain)} DP`},
       onExit(){
         if(player.points.gte(1.79e308)){
           player.l.dp=Math.max(player.l.dp,player.l.dpGain)
+          player.l.challenges[11]=0
         }
       },
       onEnter(){
@@ -837,7 +839,7 @@ addLayer("l", {
     "Main":{
       content:[
         "main-display",
-        "prestige-button",
+        function(){return inChallenge("m",11)?"":"prestige-button"},
         "resource-display",
         ["display-text",function(){return `You have earned ${formatWhole(player.l.total)} lines in total.`}],
         ["milestones",[0,1,2,3]]
@@ -846,7 +848,7 @@ addLayer("l", {
     "Upgrades":{
       content:[
         "main-display",
-        "prestige-button",
+        function(){return inChallenge("m",11)?"":"prestige-button"},
         "resource-display",
         "upgrades"
       ]
@@ -854,7 +856,7 @@ addLayer("l", {
     "The Challenge":{
       content:[
         "main-display",
-        "prestige-button",
+        function(){return inChallenge("m",11)?"":"prestige-button"},
         "resource-display",
         ["microtabs","The Challenge"]
       ],
@@ -878,6 +880,9 @@ addLayer("l", {
           ["infobox","challInfo"]
         ]
       },
+      Help:{
+        content:[["microtabs","Help"]]
+      },
       DP:{
         content:[["microtabs","DP"]]
       }
@@ -889,12 +894,35 @@ addLayer("l", {
           ["milestones",[4,5,6,7,8,9]]
         ]
       }
+    },
+    Help:{
+      "Help":{
+        content:[["infobox","Hint"]]
+      },
+      "0-4DP":{
+        content:[["infobox","0-4DP"]]
+      },
+      "5-8DP":{
+        content:[["infobox","5-8DP"]]
+      }
     }
   },
   infoboxes:{
     challInfo:{
       title: "Challenge Info",
       body: "<span style='color:#ff0000'>Red</span> means it's deactivated for the challenge while <span style='color:#00ff00'>green</span> means it isn't. You get more DP from better upgrades."
+    },
+    Hint:{
+      title: "Help",
+      body: "If you don't know how to get enough DP to progress you can read these hints."
+    },
+    "0-4DP":{
+      title: "Hint",
+      body: "QoL, while helpful, isn't required."
+    },
+    "5-8DP":{
+      title: "Hint",
+      body: "L3 upgrades aren't as good as you might think."
     }
   }
 })

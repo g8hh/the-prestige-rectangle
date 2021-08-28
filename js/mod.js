@@ -13,7 +13,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2",
+	num: "1.2.1",
 	name: "Downgrade I",
 }
 
@@ -32,7 +32,13 @@ let changelog = `<h1>Changelog:</h1><br>
     - Made The Challenge possible<br>
     - Added 1 new achievement<br>
     - Added 6 DP milestones<br>
-    Endgame: 6th DP milestone
+    Endgame: 6th DP milestone<br><br>
+  v1.2.1<br>
+    - Removed ability to reset in The Prestige Triangle<br>
+    - The Challenge glows when you can complete it<br>
+    - Removed warning<br>
+    - Added DP hints<br>
+    - Added a softcap to Point Boosters+ (it won't do anything right now unless your save inflated)
     `
 
 let winText = `Congratulations! You have reached the end of this grindy game!`
@@ -83,7 +89,7 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-  function(){return hasMilestone("l",7)?"<span style='color:red'>WARNING: Content beyond this point is untested.</span><br>If you get 5 or 8 downgrade points please<br> DM gapples2#5323 the upgrades you disabled.":""}
+  function(){return false?"<span style='color:red'>WARNING: Content beyond this point is untested.</span>":""}
 ]
 
 // Determines when the game "ends"
