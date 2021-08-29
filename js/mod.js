@@ -3,7 +3,7 @@ let modInfo = {
 	id: "mhauirsbfvshncfhuscndfhdfgvfndu",
 	author: "gapples2",
 	pointsName: "points",
-	modFiles: ["layers/rectangle.js", "tree.js", "layers/ghostLayers.js", "layers/achs.js"],
+	modFiles: ["utils/mathstuff.js", "layers/rectangle.js", "tree.js", "layers/ghostLayers.js", "layers/achs.js", "layers/modes.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,8 +13,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.1",
-	name: "Downgrade I",
+	num: "1.3",
+	name: "Downgrade II",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -38,7 +38,15 @@ let changelog = `<h1>Changelog:</h1><br>
     - The Challenge glows when you can complete it<br>
     - Removed warning<br>
     - Added DP hints<br>
-    - Added a softcap to Point Boosters+ (it won't do anything right now unless your save inflated)
+    - Added a softcap to Point Boosters+ (it won't do anything right now unless your save inflated)<br><br>
+  <h3>v1.3 ~ Downgrade II</h3><br>
+    - Added downgrade energy<br>
+    - Added grindless mode<br>
+    - You can get another L1 upgrade<br>
+    - Added 3 L2 upgrades which you can only get 2 of<br>
+    - Added extra nerfs to The Challenge<br>
+    - Added 11 new achievements (now has 4 rows of 7 achs!)<br>
+    Endgame: All achievements
     `
 
 let winText = `Congratulations! You have reached the end of this grindy game!`
@@ -79,12 +87,15 @@ function getPointGen() {
   
   // lines
   if(hasUpgrade('l',11))gain=gain.times(upgradeEffect("l",11))
+  if(hasUpgrade('l',22))gain=gain.times(upgradeEffect("l",22))
+  if(inChallenge("l",11))gain=gain.pow(player.l.pointExp)
   
 	return gain
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+  grindless: false
 }}
 
 // Display extra things at the top of the page
@@ -94,7 +105,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone("l",9)
+	return false
 }
 
 
