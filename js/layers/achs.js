@@ -39,6 +39,11 @@ addLayer("achs", {
         tooltip: "Buy 3 L3 upgrades.",
         done(){return player.l3.upgrades.length>=3}
       },
+      17: {
+        name: "Half Way There!",
+        tooltip: "Get 50 L3 points.",
+        done(){return player.l3.points.gte(50)}
+      },
       21: {
         name: "Yet Another Layer",
         tooltip: "Get 1 L4 point.",
@@ -110,6 +115,64 @@ addLayer("achs", {
         tooltip: "Unlock downgrade energy.",
         done(){return hasMilestone("l",9)},
         unlocked(){return hasAchievement(this.layer,33)}
+      },
+      36: {
+        name: "Even More Points!",
+        tooltip: "Buy DE to Points.",
+        done(){return hasUpgrade("l",22)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      37: {
+        name: "Getting OP",
+        tooltip: "Buy More DE to Points.",
+        done(){return hasUpgrade("l",42)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      41: {
+        name: "But there's no point...",
+        tooltip: "Reach 1.79e308 points within The Challenge with Doubler disabled.",
+        done(){return player.points.gte(1.79e308)&&isDisabled("l1",11)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      42: {
+        name: "Upgrade <strike>Complete</strike> Loss",
+        tooltip: "Reach 1.79e308 points within The Challenge with all the upgrades that unlock new upgrades disabled.",
+        done(){return player.points.gte(1.79e308)&&isDisabled("l1",22)&&isDisabled("l1",23)&&isDisabled("l2",12)&&isDisabled("l3",12)&&isDisabled("l4",22)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      43: {
+        name: "Imagine using Doublers",
+        tooltip: "Reach 1.79e308 points within The Challenge with only Point Boosters enabled.",
+        done(){
+          return player.points.gte(1.79e308)&&isDisabled("l1",11)&&isDisabled("l1",12)&&isDisabled("l1",13)&&isDisabled("l1",21)&&isDisabled("l1",22)&&isDisabled("l1",23)
+          &&isDisabled("l2",11)&&isDisabled("l2",12)&&isDisabled("l2",13)&&isDisabled("l2",21)&&isDisabled("l2",22)&&isDisabled("l2",23)
+          &&isDisabled("l3",11)&&isDisabled("l3",12)&&isDisabled("l3",21)&&isDisabled("l3",22)&&isDisabled("l4",12)&&isDisabled("l4",21)&&isDisabled("l4",22)
+        },
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      44: {
+        name: "Actually 2?",
+        tooltip: "Be able to gain 2 lines in one line reset.",
+        done(){return tmp.l.resetGain.gte(2)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      45: {
+        name: "Finally More Upgrades",
+        tooltip: "Get Final L2.",
+        done(){return hasUpgrade("l1",32)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      46: {
+        name: "Lossless Corners",
+        tooltip: "Get Keeper V.",
+        done(){return hasUpgrade("l2",32)},
+        unlocked(){return hasAchievement(this.layer,35)}
+      },
+      47: {
+        name: "Extreme Downgrades",
+        tooltip: "Get 1e40 downgrade energy.",
+        done(){return player.l.de.gte(1e40)},
+        unlocked(){return hasAchievement(this.layer,35)}
       },
     },
   tabFormat: [["display-text",function(){return `You have completed <h2 style="color:#ffff00;text-shadow:#ffff00 0px 0px 10px">${formatWhole(player.achs.achievements.length)}/${formatWhole(Object.keys(layers.achs.achievements).length-2)}</h2> achievements.`}],"blank","achievements"],
