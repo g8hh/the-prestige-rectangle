@@ -625,7 +625,6 @@ addLayer("m", {
       effect(){return challengeCompletions(this.layer,this.id)+1},
       unlocked(){return hasMilestone("m",2)&&!(inChallenge("l",11)&&player.l.maxPTcompletions==0)},
       onExit(){
-        player.points=D(0)
         if(hasMilestone("l",0)){
           let max = player.l2.points.div(1e15).log(1e5).min((inChallenge("l",11)?player.l.maxPTcompletions:5)-player[this.layer].challenges[11]).max(0).floor().toNumber()
           if(!isNaN(max))player[this.layer].challenges[11]+=max
@@ -641,6 +640,7 @@ addLayer("m", {
         keepupgs.forEach(upg=>{
           if(!hasUpgrade(upg[0],upg[1]))player[upg[0]].upgrades.push(upg[1])
         })
+        player.points=D(0)
       },
       onEnter(){
         player.l1.upgrades=[]
