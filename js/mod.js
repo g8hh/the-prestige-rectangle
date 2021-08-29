@@ -105,7 +105,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return false
+	return player.achs.achievements.length==Object.keys(layers.achs.achievements).length
 }
 
 
