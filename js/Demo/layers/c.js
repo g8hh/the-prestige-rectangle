@@ -160,7 +160,7 @@ addLayer("c", {
                 doReset(this.layer, true) // Force a reset
             },
             respecText: "Respec Thingies", // Text on Respec button, optional
-            respecMessage: "Are you sure? Respeccing these doesn't accomplish much.",
+            respecMessage: "你确定吗？ 重洗这些并没有太大的作用。",
             11: {
                 title: "Exhancers", // Optional, displayed at the top in a larger font
                 cost(x) { // cost for buying xth buyable, can be an object if there are multiple currencies
