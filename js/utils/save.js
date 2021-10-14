@@ -270,7 +270,7 @@ function exportSave() {
 }
 function importSave(imported = undefined, forced = false) {
 	if (imported === undefined)
-		imported = prompt("Paste your save here");
+		imported = prompt("在这里粘贴存档");
 	try {
 		tempPlr = Object.assign(getStartPlayer(), JSON.parse(atob(imported)));
 		if (tempPlr.versionType != modInfo.id && !forced && !confirm("这个存档似乎是针对不同的模组！ 您确定要导入吗？")) // Wrong save (use "Forced" to force it to accept.)
