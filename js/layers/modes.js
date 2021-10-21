@@ -15,7 +15,7 @@ addLayer("modes", {
       display: "Autobuy upgrades, gain 3x more of each layer's currency, and keep L4 upgrades on middle reset.",
       canClick(){return !player.grindless},
       onClick(){
-        if(confirm("Are you sure you want to enter Grindless?"))player.grindless=true
+        if(confirm("您确定要进入 不受约束 吗？"))player.grindless=true
       },
       style(){return {"background-color":player.grindless?"#00ff00":"#ff0000"}}
     }
